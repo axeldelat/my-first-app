@@ -17,17 +17,30 @@ class Counter extends Component {
     console.log("componentDidUpdate")
   }
 
-  clickHandler() {
-    let { counter } = this.state
-    this.setState({
-      counter: counter + 1
-    })
-  }
+  // clickAddHandler() {
+  //   let { counter } = this.state
+  //   this.setState({
+  //     counter: counter + 1
+  //   })
+  // }
 
-  clickHandlerRemove() {
+  // clickDecreaseHandler() {
+  //   let { counter } = this.state
+  //   this.setState({
+  //     counter: counter - 1
+  //   })
+  // }
+
+  clickHandler(operator) {
     let { counter } = this.state
+    if (operator === "add") {
+      counter++
+    } else {
+      counter--
+    }
+
     this.setState({
-      counter: counter - 1
+      counter,
     })
   }
 
@@ -36,8 +49,8 @@ class Counter extends Component {
   return (
     <div>
       <h1>Counter: {this.state.counter}</h1>
-      <button onClick={() => this.clickHandler()}>Add</button>
-      <button onClick={() => this.clickHandlerRemove()}>Remove</button>
+      <button onClick={() => this.clickHandler("add")}>Add</button>
+      <button onClick={() => this.clickHandler("Decrease")}>Decrease</button>
     </div>
     )
   }
