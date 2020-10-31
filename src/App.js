@@ -1,6 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import ToggleColor from './components/TooggleColor';
+// import Counter from './components/Counter';
+// import ToggleColor from './components/TooggleColor';
+import Koders from './components/Koders'
+
 
 function App() {
   return (
@@ -19,7 +22,9 @@ function App() {
           Learn React
         </a>
       </header>
-      <ToggleColor />
+      {/* <ToggleColor />
+      <Counter /> */}
+      <Koders />
     </div>
   );
 }
