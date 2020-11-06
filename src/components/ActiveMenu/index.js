@@ -7,7 +7,7 @@ class ActiveMenu extends Component {
     super(props)
 
     this.state = {
-      MenuItems
+      isToggleOn: null
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -15,10 +15,9 @@ class ActiveMenu extends Component {
 
   handleClick(e) {
     this.setState(state => ({
-      isToggleOn: !state.isToggleOn
+      isToggleOn: [e]
     }));
     console.log(e)
-    console.log(this.state.MenuItems[e-1].isToggleOn)
   }
 
   render() {
@@ -29,16 +28,13 @@ class ActiveMenu extends Component {
           {MenuItems.map((item,)=> {
             return (
           <li key={item.id} onClick={(e) => this.handleClick(item.id, e)}>
-            <a className={ item.isToggleOn ? 'big-font' : 'small-font'} href={item.url}>
+            <a className={ item.isToggleOn ? 'small-font' : 'big-font'} href={item.url}>
               {item.title}
             </a>
           </li>
             )
           })}
         </ul>
-        <button onClick={this.handleClick}>
-        {this.state.isToggleOn ? 'ON' : 'OFF'}
-      </button>
       </div>
     )
   }

@@ -14,7 +14,7 @@ export const MenuItems = [
   {
     title: 'Services',
     url: '#',
-    isToggleOn: true,
+    isToggleOn: false,
     id: 3
   },
   {
