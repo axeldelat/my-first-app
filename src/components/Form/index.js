@@ -1,37 +1,47 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 class Form extends Component {
-  constructor(props){
-    super()
+  constructor(props) {
+    super(props);
     this.state = {
-      MXNquantity: 0,
-      USDquantity: 0,
-    }
-    console.log(this)
-    this.handleChange = this.handleChange.bind(this)
+      MXNQuantity: 0,
+      USDQuantity: 0,
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange({target: { value }}) {
+  handleChange({ target: { value } }) {
     this.setState({
-      MXNquantity: value,
-      USDquantity: value / 21.6,
-    })
+      MXNQuantity: value,
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const { MXNQuantity } = this.state;
+    this.setState({
+      USDQuantity: MXNQuantity / 21.6,
+    });
   }
 
   render() {
-    const { MXNquantity, USDquantity } = this.state
+    const { MXNQuantity, USDQuantity } = this.state;
     return (
       <div>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input
             type="number"
-            value={MXNquantity}
-            onChange={this.handleChange}  />
+            value={MXNQuantity}
+            onChange={this.handleChange}
+          />
+          <button type="submit">Convertir</button>
         </form>
-        <p>USD: ${USDquantity.toFixed(2)}</p>
+        <p>USD: ${USDQuantity.toFixed(2)}</p>
       </div>
-    )
+    );
   }
 }
 
-export default Form
+export default Form;
