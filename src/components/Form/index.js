@@ -27,6 +27,10 @@ class Form extends Component {
             type="number"
             value={MXNquantity}
             onChange={this.handleChange}  />
+          <input
+            type="number"
+            value={USDquantity.toFixed(2)}
+            onChange={this.handleChange}  />
         </form>
         <p>USD: ${USDquantity.toFixed(2)}</p>
       </div>
