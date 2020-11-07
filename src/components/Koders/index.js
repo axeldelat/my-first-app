@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 
+// Components
+import CustomInput from "../CustomInput";
+
 // CSS
 import "./Koders.css";
 
@@ -65,7 +68,7 @@ class Koders extends Component {
     });
   }
 
-  handlerNewKoderChange({ target: { value, name } }) {
+  handlerNewKoderChange(name, value) {
     this.setState({
       [name]: value,
     });
@@ -101,16 +104,25 @@ class Koders extends Component {
         )}
         <form onSubmit={this.handleSubmit}>
           Name:{" "}
-          <input
+          <CustomInput
+            type="text"
             value={koderName}
-            onChange={this.handlerNewKoderChange}
             name="koderName"
+            callback={this.handlerNewKoderChange}
           />
           Age:{" "}
-          <input
+          <CustomInput
+            type="text"
             value={koderAge}
-            onChange={this.handlerNewKoderChange}
             name="koderAge"
+            callback={this.handlerNewKoderChange}
+          />
+          Hobbies:{" "}
+          <CustomInput
+            type="text"
+            value={koderAge}
+            name="koderAge"
+            callback={this.handlerNewKoderChange}
           />
           <button type="submit">Crear Koder</button>
         </form>
@@ -120,16 +132,3 @@ class Koders extends Component {
 }
 
 export default Koders;
-
-/*
-
-1. ABSTRAER el objeto POST de un blog
-2. Crear un JSON con varios objetos POST
-3. Crear un componente que renderize esos POST's a modo de Cards (como un blog)
-4. Añadir un formulario a ese componente para poder añadir POST
-
-Por cierto, los entregables tienen que tener una UI presentable (CSS bonito)
-
-Happy Hacking!
-
-*/

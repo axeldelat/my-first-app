@@ -11,6 +11,16 @@ class Form extends Component {
     this.handleCurrencyChange = this.handleCurrencyChange.bind(this);
   }
 
+  componentDidMount() {
+    const MXNQuantityInMemory = Number(localStorage.getItem("MXNQuantity"));
+    if (MXNQuantityInMemory) {
+      this.setState({
+        MXNQuantity: MXNQuantityInMemory,
+        USDQuantity: MXNQuantityInMemory / 21.6,
+      });
+    }
+  }
+
   handleCurrencyChange({ target: { value, name } }) {
     let MXNCurrentQuantity;
     let USDCurrentQuantity;
@@ -23,6 +33,7 @@ class Form extends Component {
       USDCurrentQuantity = value;
     }
 
+    localStorage.setItem("MXNQuantity", String(MXNCurrentQuantity));
     this.setState({
       MXNQuantity: MXNCurrentQuantity,
       USDQuantity: USDCurrentQuantity,
