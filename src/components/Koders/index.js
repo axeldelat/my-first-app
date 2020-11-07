@@ -35,12 +35,19 @@ class Koders extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      console.log("Server Response");
+    let kodersInMemory = localStorage.getItem("koders");
+    if (kodersInMemory) {
       this.setState({
-        koders: KODERS_JSON,
+        koders: JSON.parse(kodersInMemory),
       });
-    }, 5000);
+    } else {
+      setTimeout(() => {
+        localStorage.setItem("koders", JSON.stringify(KODERS_JSON));
+        this.setState({
+          koders: KODERS_JSON,
+        });
+      }, 5000);
+    }
   }
 
   renderKoders() {
@@ -72,6 +79,9 @@ class Koders extends Component {
       age: koderAge,
       hobbies: [],
     };
+    let kodersInMemory = JSON.parse(localStorage.getItem("koders"));
+    kodersInMemory.push(newKoder);
+    localStorage.setItem("koders", JSON.stringify(kodersInMemory));
     koders.push(newKoder);
     this.setState({
       koders,
