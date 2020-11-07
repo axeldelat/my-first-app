@@ -8,21 +8,24 @@ class Form extends Component {
       USDQuantity: 0,
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCurrencyChange = this.handleCurrencyChange.bind(this);
   }
 
-  handleChange({ target: { value } }) {
-    this.setState({
-      MXNQuantity: value,
-    });
-  }
+  handleCurrencyChange({ target: { value, name } }) {
+    let MXNCurrentQuantity;
+    let USDCurrentQuantity;
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const { MXNQuantity } = this.state;
+    if (name === "MXNQuantity") {
+      MXNCurrentQuantity = value;
+      USDCurrentQuantity = value / 21.6;
+    } else {
+      MXNCurrentQuantity = value * 21.6;
+      USDCurrentQuantity = value;
+    }
+
     this.setState({
-      USDQuantity: MXNQuantity / 21.6,
+      MXNQuantity: MXNCurrentQuantity,
+      USDQuantity: USDCurrentQuantity,
     });
   }
 
@@ -30,15 +33,28 @@ class Form extends Component {
     const { MXNQuantity, USDQuantity } = this.state;
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+          onSubmit={this.handleSubmit}
+        >
+          MXN:{" "}
           <input
             type="number"
             value={MXNQuantity}
-            onChange={this.handleChange}
+            onChange={this.handleCurrencyChange}
+            name="MXNQuantity"
           />
-          <button type="submit">Convertir</button>
+          USD:{" "}
+          <input
+            type="number"
+            value={USDQuantity}
+            onChange={this.handleCurrencyChange}
+            name="USDQuantity"
+          />
         </form>
-        <p>USD: ${USDQuantity.toFixed(2)}</p>
       </div>
     );
   }

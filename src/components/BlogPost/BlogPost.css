@@ -1,0 +1,35 @@
+ul {
+  list-style: none;
+}
+
+li {
+  width: 100%;
+}
+
+.post-item {
+  background-color: #fafafa;
+  margin: 24px;
+  padding: 20px;
+  border-radius: 10px;
+  color: darkslategrey;
+}
+
+.post-item img {
+  width: 100%;
+}
+
+.post-item h2 {
+  font-size: 1.25em;
+}
+
+.post-item p{
+  font-size: 0.85em;
+}
+
+.post-item span {
+  font-size: 0.5em;
+}
+
+ul {
+  display: flex;
+}

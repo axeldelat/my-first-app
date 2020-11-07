@@ -1,84 +1,125 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+
+// CSS
+import "./Koders.css";
 
 const KODERS_JSON = [
   {
-    name: 'Axel',
+    name: "Axel",
     age: 31,
-    hobbies: ['Videogames', 'Drink Every day', 'Pets']
+    hobbies: ["Videogames", "Drink every day"],
   },
   {
-    name: 'Ivan',
+    name: "Ivan",
     age: 29,
-    hobbies: ['Basketball', 'Chess']
+    hobbies: ["Basketball", "Chess", "Videojuegos"],
   },
   {
-    name: 'Luis',
+    name: "Luis",
     age: 34,
-    hobbies: ['Money money', 'Pets', 'Social Media']
+    hobbies: ["Money money", "Pets", "Social media"],
   },
-  {
-    name: 'Mauro',
-    age: 21,
-    hobbies: ['Money money', 'Pets', 'Social Media', 'Guitar']
-  }
-]
-
+];
 
 class Koders extends Component {
   constructor(props) {
-    super(props)
-
+    super(props);
     this.state = {
-      koders: []
-    }
-    console.log('Constructor')
+      koders: [],
+      koderName: "",
+      koderAge: "",
+    };
+
+    this.handlerNewKoderChange = this.handlerNewKoderChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    //Hicimos req
-    //<- res
-    console.log('Componentdidmount')
-    setTimeout( () => {
-      console.log('set')
+    setTimeout(() => {
+      console.log("Server Response");
       this.setState({
         koders: KODERS_JSON,
-      })
-    }, 100 )
+      });
+    }, 5000);
   }
 
   renderKoders() {
-    console.log('koders rendered')
-
-    return this.state.koders.map(({ name, age, hobbies}) => {
+    return this.state.koders.map(({ name, age, hobbies }) => {
       return (
         <li>
           {name}, {age} años
           <ul>
-            {hobbies.map((hobbie) => (
-              <li>{hobbie}</li>
-            ))}
+            {hobbies.map((hobbie) => {
+              return <li>{hobbie}</li>;
+            })}
           </ul>
         </li>
-      )
-    })
+      );
+    });
+  }
+
+  handlerNewKoderChange({ target: { value, name } }) {
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    let { koders, koderName, koderAge } = this.state;
+    const newKoder = {
+      name: koderName,
+      age: koderAge,
+      hobbies: [],
+    };
+    koders.push(newKoder);
+    this.setState({
+      koders,
+      koderName: "",
+      koderAge: "",
+    });
   }
 
   render() {
-    console.log('Render', this.state.koders)
+    const { koders, koderName, koderAge } = this.state;
     return (
       <div>
-        <ul>{this.renderKoders()}</ul>
+        {koders.length ? (
+          <ul>{this.renderKoders()}</ul>
+        ) : (
+          <h1>No hay Koders</h1>
+        )}
+        <form onSubmit={this.handleSubmit}>
+          Name:{" "}
+          <input
+            value={koderName}
+            onChange={this.handlerNewKoderChange}
+            name="koderName"
+          />
+          Age:{" "}
+          <input
+            value={koderAge}
+            onChange={this.handlerNewKoderChange}
+            name="koderAge"
+          />
+          <button type="submit">Crear Koder</button>
+        </form>
       </div>
-    )
+    );
   }
 }
 
-export default Koders
+export default Koders;
 
 /*
 
-Dar estilo a tabla
+1. ABSTRAER el objeto POST de un blog
+2. Crear un JSON con varios objetos POST
+3. Crear un componente que renderize esos POST's a modo de Cards (como un blog)
+4. Añadir un formulario a ese componente para poder añadir POST
 
-Filtrar a los koders con 3 o mas hobbies
+Por cierto, los entregables tienen que tener una UI presentable (CSS bonito)
+
+Happy Hacking!
 
 */
